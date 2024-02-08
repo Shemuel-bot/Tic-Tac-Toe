@@ -19,6 +19,13 @@ body{
 .square{
     background-color: white;
 }
+img{
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 150px;
+}
 .square:hover{
     background-color: rgba(235, 233, 233, 0.247);
 }
