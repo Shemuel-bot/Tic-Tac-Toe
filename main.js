@@ -1,10 +1,12 @@
-let playerOneTurn = true;
+let playerOneTurn=true;
+let playerCreated=false;
 
 const GameBoard=(function (){
     const gameBoard = Array.from(document.querySelectorAll('.square'));
     let position = ['', '', '', '', '', '', '', '', '']
     gameBoard.map((x)=>{
         x.addEventListener('click', ()=>{
+        if(playerCreated){
             if(position[gameBoard.indexOf(x)] == ''){
                 const img = document.createElement('img');
 
@@ -20,7 +22,7 @@ const GameBoard=(function (){
                 x.appendChild(img);
                 console.log(position);
             }
-            
+        }
         });
     })
     return {position};
@@ -46,6 +48,8 @@ const GameBoard=(function (){
         player2Text.textContent=player2.name +`: ${player2.score}`;
         document.querySelector('.player-fields').appendChild(player1Text);
         document.querySelector('.player-fields').appendChild(player2Text);
+
+        playerCreated=true;
     })
 })();
 
