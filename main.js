@@ -28,24 +28,29 @@ const GameBoard=(function (){
 
 (function GameManager(){
     const playButton = document.querySelector('button');
-    const player1=new Player('j');
-    const player2=new Player('k');
+    const player1=new Player();
+    const player2=new Player();
 
     playButton.addEventListener('click', ()=>{
+        if(document.querySelector('h2')){document.querySelector('h2').remove(); document.querySelector('h2').remove();}
+        player1.score=0;
+        player2.score=0;
 
-        player1.name=document.getElementById('player-one-input').textContent;
-        player2.name=document.getElementById('player-two-input').textContent;
+        console.log(player1.name);
+        player1.name=document.getElementById('player-one-input').value;
+        player2.name=document.getElementById('player-two-input').value;
         const player1Text = document.createElement('h2');
         const player2Text = document.createElement('h2');
-        console.log(player1.name)
-        player1Text.textContent=player1.name +':';
-        player2Text.textContent=player2.name;
+
+        player1Text.textContent=player1.name +`: ${player1.score}`;
+        player2Text.textContent=player2.name +`: ${player2.score}`;
         document.querySelector('.player-fields').appendChild(player1Text);
         document.querySelector('.player-fields').appendChild(player2Text);
     })
 })();
 
-function Player(name){
-    let score = 0;
+function Player(){
+    const score =0;
+    let name = '';
     return{name, score}
 }
