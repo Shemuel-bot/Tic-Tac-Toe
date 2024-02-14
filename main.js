@@ -42,7 +42,7 @@ const GameBoard=(function (){
     })
     return {pieces, ResetPosition};
 })();
-//Sees if someone got three in arrow
+//Sees if someone got three in a row
 function CheckWhoWon(variable){
     if(position[0]==variable && position[1]==variable && position[2]==variable){return true;}
     if(position[0]==variable && position[4]==variable && position[8]==variable){return true;}
