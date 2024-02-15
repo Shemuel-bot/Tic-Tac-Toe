@@ -1,6 +1,8 @@
 let playerOneTurn=true;
 let playerCreated=false;
 let position=['', '', '', '', '', '', '', '', ''];
+//used to see if it ends in a tie
+let numberOfVarsPlaced=0;
 const GameBoard=(function (){
     const gameBoard = Array.from(document.querySelectorAll('.square'));
     let pieces=[];
@@ -12,6 +14,7 @@ const GameBoard=(function (){
             if(position[gameBoard.indexOf(x)] == ''){
                 const img = document.createElement('img');
                 pieces.push(img);
+                numberOfVarsPlaced++;
              if(playerOneTurn){
                     img.setAttribute('src', 'images/alpha-x.png');
                     position[gameBoard.indexOf(x)]='x';
@@ -19,25 +22,26 @@ const GameBoard=(function (){
                 }else{
                     img.setAttribute('src', 'images/circle.png');
                     position[gameBoard.indexOf(x)]='o';
-                    playerOneTurn=true;
+                     playerOneTurn=true;
                 }
                 x.appendChild(img);
-                console.log(CheckWhoWon('x'));
                 if(CheckWhoWon('x')){
                     GameManager.player1.score++;
                     GameManager.UpdateScoreText();
                     pieces.map((x)=> x.remove())
                     ResetPosition();
+                    numberOfVarsPlaced=0;
                 }
                 if(CheckWhoWon('o')){
                     GameManager.player2.score++;
                     GameManager.UpdateScoreText();
                     pieces.map((x)=> x.remove())
                     ResetPosition();
+                    numberOfVarsPlaced=0;
                 }
+                if(numberOfVarsPlaced==9){ResetPosition(); pieces.map((x)=> x.remove()); numberOfVarsPlaced=0; playerOneTurn=true;}
             }
         }
-        console.log(position);
         });
     })
     return {pieces, ResetPosition};
@@ -54,7 +58,6 @@ function CheckWhoWon(variable){
     if(position[3]==variable && position[4]==variable && position[5]==variable){return true;}
     return false;
 }
-
 const GameManager=(function GameManager(){
     const playButton = document.querySelector('button');
     const player1=new Player();
@@ -88,7 +91,6 @@ const GameManager=(function GameManager(){
 
     return{player1, player2, UpdateScoreText}
 })();
-
 function Player(){
     const score =0;
     let name = '';
